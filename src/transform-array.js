@@ -13,21 +13,23 @@ import { NotImplementedError } from '../extensions/index.js';
  * transform([1, 2, 3, '--discard-prev', 4, 5]) => [1, 2, 4, 5]
  * 
  */
+// export default function transform(/*arr*/) {
+//   throw new NotImplementedError('Not implemented');
+// }
 export default function transform(arr) {
+  if (!Array.isArray(arr)) { throw new Error("'arr' parameter must be an instance of the Array!") }
+  const sequences = ['--discard-next', '--discard-prev', '--double-next', '--double-prev']
   let res = []
   for ( let i = 0; i < arr.length; i++ ) {
-    if ( typeof(arr[i]) === 'number' ) {
+    if ( !sequences.includes(arr[i]) && arr[i-1] !== '--discard-next' ) {
       res.push(arr[i])
-    } else if ( arr[i] === '--double-next' ) {
-      res.push(arr[i+1])
-    } else if ( arr[i] === '--double-prev' ) {
-      res.push(arr[i-1])
-    } else if ( arr[i] === '--discard-prev' ) {
+    } else if ( arr[i] === sequences[1] ) {
       res = res.slice(0,-1)
-    } else if ( arr[i] === '--discard-prev' ) {
-      i++
+    } else if ( arr[i] === sequences[2] && i != arr.length - 1 ) {
+      res.push(arr[i+1])
+    } else if ( arr[i] === sequences[3] && i != 0 ) {
+      res.push(arr[i-1])
     }
   }
   return res
-  //throw new NotImplementedError('Not implemented');
 }
