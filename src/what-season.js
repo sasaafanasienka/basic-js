@@ -8,12 +8,21 @@ import { NotImplementedError } from '../extensions/index.js';
  * 
  * @example
  * 
- * getSeason(new Date(2020, 02, 31)) => 'spring'
- * 
  */
 export default function getSeason(date) {
   if (!date) { return 'Unable to determine the time of year!'}
+  const isValidDate = date instanceof Date && !isNaN(date)
+  if ( !isValidDate ) { throw new Error('Invalid date!') }
   const month = date.getMonth()
-  if (!month || typeof(month) !== 'number' || month < 0 || month > 11) { throw new Error('Invalid date!') }
   return month == 11 || month <= 1 ? 'winter' : month <= 4 ? 'spring' : month <= 7 ? 'summer' : 'autumn'
 }
+
+
+// const fakeDate = {
+//   toString() {
+//       return Date.prototype.toString.call(new Date());
+//   },
+//   [Symbol.toStringTag]: 'Date'
+// };
+
+// Object.setPrototypeOf(fakeDate, Object.getPrototypeOf(new Date()));
