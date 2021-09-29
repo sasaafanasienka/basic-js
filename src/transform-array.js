@@ -1,4 +1,4 @@
-import { NotImplementedError } from '../extensions/index.js';
+// import { NotImplementedError } from '../extensions/index.js';
 
 /**
  * Create transformed array based on the control sequences that original
@@ -13,7 +13,7 @@ import { NotImplementedError } from '../extensions/index.js';
  * transform([1, 2, 3, '--discard-prev', 4, 5]) => [1, 2, 4, 5]
  * 
  */
-// export default function transform(/*arr*/) {
+// export default function transform(/*arr*/) {}
 //   throw new NotImplementedError('Not implemented');
 // }
 export default function transform(arr) {
@@ -23,11 +23,14 @@ export default function transform(arr) {
   for ( let i = 0; i < arr.length; i++ ) {
     if ( !sequences.includes(arr[i]) && arr[i-1] !== '--discard-next' ) {
       res.push(arr[i])
-    } else if ( arr[i] === sequences[1] ) {
+    }
+    if (arr[i] === sequences[1] && arr[i-2] !== sequences[0] ) {
       res = res.slice(0,-1)
-    } else if ( arr[i] === sequences[2] && i != arr.length - 1 ) {
+    }
+    if ( arr[i] === sequences[2] && i != arr.length - 1 ) {
       res.push(arr[i+1])
-    } else if ( arr[i] === sequences[3] && i != 0 ) {
+    }
+    if ( arr[i] === sequences[3] && i != 0 && arr[i-2] !== sequences[0] ) {
       res.push(arr[i-1])
     }
   }
