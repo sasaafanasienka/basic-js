@@ -1,4 +1,4 @@
-// import { NotImplementedError } from '../extensions/index.js';
+import { NotImplementedError } from '../extensions/index.js';
 
 /**
  * Implement class VigenereCipheringMachine that allows us to create
@@ -82,10 +82,3 @@ export default class VigenereCipheringMachine {
   }
 
 }
-
-const directMachine = new VigenereCipheringMachine();
-const reverseMachine = new VigenereCipheringMachine(false);
-console.log(directMachine.encrypt('attack at dawn!', 'alphonse')) // 'AEIHQX SX DLLU!'
-console.log(directMachine.decrypt('AEIHQX SX DLLU!', 'alphonse')) // 'ATTACK AT DAWN!'
-console.log(reverseMachine.encrypt('attack at dawn!', 'alphonse')) // '!ULLD XS XQHIEA'
-console.log(reverseMachine.decrypt('AEIHQX SX DLLU!', 'alphonse')) // '!NWAD TA KCATTA'
